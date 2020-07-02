@@ -1,14 +1,14 @@
 <template>
-  <nuxt-link :to="`/${slug}`" class="c-teaser o-box o-box--huge link--blank">
-    <article>
+  <article>
+    <nuxt-link :to="`/${slug}`" class="c-teaser o-box o-box--huge link--blank">
       <h2 class="u-mb-0 color-white">
         {{ title }}
       </h2>
       <p v-if="lead" class="u-mb-0 color-white">
         {{ lead }}
       </p>
-    </article>
-  </nuxt-link>
+    </nuxt-link>
+  </article>
 </template>
 
 <script>
