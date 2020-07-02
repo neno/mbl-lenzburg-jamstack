@@ -55,6 +55,12 @@ export default {
     await store.dispatch('categories/getCategories')
     await store.dispatch('teasers/getTeasersByPageSlug', 'home')
   },
+  head() {
+    return {
+      title:
+        'Home - Musikalische Begegnungen Lenzburg – Klassik Festival in Lenzburg Aargau',
+    }
+  },
 }
 </script>
 
