@@ -1,18 +1,38 @@
 <template>
-  <div class="container">
-    <div>
-      <Logo />
-      <h1 class="title">mbl-lenzburg</h1>
-      <aside class="o-layout__item" v-if="teasers">
-        <Teaser
-          v-for="teaser in teasers"
-          :key="teaser.slug"
-          :title="teaser.title"
-          :slug="teaser.slug"
-          :lead="teaser.lead"
-        />
-      </aside>
+  <div class="index o-layout">
+    <div class="o-layout-item">
+      <div class="c-article">
+        <nuxt-link to="/programm" class="link--blank">
+          <header class="c-article__header u-mb-normal">
+            <h1 class="color-theme-1 u-mb-tiny">{{ activeCategory.title }}</h1>
+            <h2 class="color-theme-1">{{ activeCategory.lead }}</h2>
+          </header>
+          <picture>
+            <source
+              media="(min-width: 900px)"
+              srcset="~assets/images/theme/theme_2020_home.jpg"
+            />
+            <source
+              media="(max-width: 899px)"
+              srcset="~assets/images/theme/theme_2020_home_mobile.jpg"
+            />
+            <img
+              src="~assets/images/theme/theme_2020_home.jpg"
+              alt="Musiker von Hausmusik"
+            />
+          </picture>
+        </nuxt-link>
+      </div>
     </div>
+    <aside class="o-layout__item" v-if="teasers">
+      <Teaser
+        v-for="teaser in teasers"
+        :key="teaser.slug"
+        :title="teaser.title"
+        :slug="teaser.slug"
+        :lead="teaser.lead"
+      />
+    </aside>
   </div>
 </template>
 
@@ -24,11 +44,15 @@ export default {
     Teaser,
   },
   computed: {
+    activeCategory() {
+      return this.$store.state.categories.activeCategory
+    },
     teasers() {
       return this.$store.state.teasers.teasers['home']
     },
   },
   async fetch({ store, params }) {
+    await store.dispatch('categories/getCategories')
     await store.dispatch('teasers/getTeasersByPageSlug', 'home')
   },
 }
